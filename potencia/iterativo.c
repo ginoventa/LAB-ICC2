@@ -2,12 +2,16 @@
 #include <math.h> 
 
 void main(){
-    int n,k, numeroPotencia = 1; //Números da potência: n^k 
+    int n,k, numeroPotencia = 1; 
     scanf("%d %d", &n, &k);
+    int base = n%1000;
     if( n > 0 || n < 99 || k < 0 || k < pow(10,9)){
         while(k != 0){
-            numeroPotencia = (numeroPotencia*n)%1000; 
-            k--; 
+            if(k % 2){
+                numeroPotencia = (numeroPotencia*base)%1000;
+            }
+            base = (base*base)%1000;
+            k = k / 2;
         }   
         printf("%d", numeroPotencia);
     }

@@ -1,27 +1,17 @@
 #include <stdio.h>
 
-int potencia_mod(int n, int k) {
-    int resultado = 1;
-    int base = n % 1000;
-
-    while (k > 0) {
-        if (k % 2 == 1) {             // se k é ímpar
-            resultado = (resultado * base) % 1000;
-        }
-        base = (base * base) % 1000;  // eleva ao quadrado
-        k /= 2;
-    }
-    return resultado;
-}
-
 int main() {
     int n, k;
+    int resultado = 1;
+
     scanf("%d %d", &n, &k);
 
-    int r = potencia_mod(n, k);
-
-    // imprime sem zeros à esquerda
-    printf("%d\n", r);
+    if (n > 0 && n <= 99 && k >= 0 && k <= 1000000000) {
+        for (int i = 0; i < k; i++) {
+            resultado = (resultado * n) % 1000; // mantém só os últimos 3 dígitos
+        }
+        printf("%d\n", resultado);
+    }
 
     return 0;
 }
