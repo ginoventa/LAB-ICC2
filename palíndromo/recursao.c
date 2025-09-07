@@ -30,7 +30,6 @@ int palindromo_recursivo(char *frase, int inicio, int fim){
     if(frase[inicio] != frase[fim]) return 0;
     return palindromo_recursivo(frase, inicio + 1, fim - 1);
 }
-
 /*
     Função: verificadorDePalindromo
     Objetivo: Após chamar a função modificadorDeString, começa a comparar a string a fim de verificar se ela é um palíndromo
