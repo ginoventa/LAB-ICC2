@@ -4,8 +4,6 @@
 /*
 Nesse caso, a ideia das operações e "dividir para conquistar". Então, dividiremos a potencia 
 em duas partes iguais até atingir o fundo desse processo.*/
-
-
 int potencia(int n, int k){
     if(k == 1) return n; 
     if(k % 2 == 0){
