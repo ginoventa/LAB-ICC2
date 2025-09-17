@@ -40,5 +40,6 @@ int main(){
         }
     }
     imprimir(nu, ne, USP, EXTERNA);
+    
     return 0; 
 }
