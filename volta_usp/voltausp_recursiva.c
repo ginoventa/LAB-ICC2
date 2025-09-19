@@ -2,16 +2,16 @@
 #include <ctype.h>
 #include <string.h>
 
-int contador_palavras(char *str){
-    int nome = 0, i = 0; 
-    while(str[i] != '-' && str[i] != '\0'){
-        if(isalpha(str[i])){
-            nome++; 
-        }
-        i++; 
+int contador_palavras_rec(char *str, int i) {
+    if (str[i] == '-' || str[i] == '\0') {
+        return 0;
     }
-    return nome;
-}   
+    return (isalpha(str[i]) ? 1 : 0) + contador_palavras_rec(str, i + 1);
+}
+
+int contador_palavras(char *str) {
+    return contador_palavras_rec(str, 0);
+}
 void imprimir(int nu, int ne, int* USP, int* EXTERNA){
     printf("USP - [");
     for(int i = 0; i < nu; i++) {
