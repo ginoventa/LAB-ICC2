@@ -1,6 +1,7 @@
+//Nome: Christyan Paniago Nantes — Nº USP: 15635906
+//Nome: Giovanna Nascimento Noventa — Nº USP: 15637210
 #include <stdio.h>
 #include <string.h>
-#include <stdlib.h> 
 #include <stdbool.h>    
 
 typedef enum{
@@ -38,6 +39,18 @@ bool compara_brinquedos(brinquedo a, brinquedo b){ // verifica se a deve vir ant
     return a.pos_original < b.pos_original;
 }
 
+void bubble_sort(brinquedo *brinquedos, int n){
+    for(int i = 0;i<n-1;i++){
+        for (int j = 0;j<n-i-1;j++){
+            if(!compara_brinquedos(brinquedos[j], brinquedos[j+1])){
+                brinquedo temp = brinquedos[j];
+                brinquedos[j] = brinquedos[j+1];
+                brinquedos[j+1] = temp;
+            }
+        }
+    }
+}
+
 void insertion_sort(brinquedo *a, int n){
     brinquedo b;
     int j = 0;
@@ -52,17 +65,6 @@ void insertion_sort(brinquedo *a, int n){
     }
 }
 
-void bubble_sort(brinquedo *brinquedos, int n){
-    for(int i = 0;i < n-1;i++){
-        for (int j = 0;j<n-i-1;j++){
-            if(!compara_brinquedos(brinquedos[j], brinquedos[j+1])){
-                brinquedo temp = brinquedos[j];
-                brinquedos[j] = brinquedos[j+1];
-                brinquedos[j+1] = temp;
-            }
-        }
-    }
-}
 void merge(brinquedo *brinquedos, int left, int mid, int right, brinquedo *aux){
     int i = left, j = mid + 1, k = left;
     
@@ -116,38 +118,37 @@ void merge_sort(brinquedo *brinquedos, int n){
     }
 }
 
-void qsort(brinquedo vetor[], int l, int r) {
-    int i, j;
+void qsort(brinquedo vetor[], int l, int r){
+    int i,j;
     brinquedo aux, x;
     i = l;
     j = r;
-    x = vetor[(l + r) / 2];
-    do {
-        while (compara_brinquedos(vetor[i], x)) {
+    x = vetor[(l+r)/2];
+    do{
+        while(compara_brinquedos(vetor[i], x)){
             i++;
         }
-        while (compara_brinquedos(x, vetor[j])) {
+        while(compara_brinquedos(x, vetor[j])){
             j--;
         }
-        if (i <= j) {
+        if(i<=j){
             aux = vetor[i];
             vetor[i] = vetor[j];
             vetor[j] = aux;
             i++;
             j--;
         }
-    } while (i <= j);
-    
-    if (l < j) {
-        qsort_recursive(vetor, l, j);
+    }while(i<=j);
+    if(l<j){
+        qsort(vetor,l,j);
     }
-    if (i < r) {
-        qsort_recursive(vetor, i, r);
+    if(i<r){
+        qsort(vetor,i,r);
     }
 }
 
-void quick_sort(brinquedo *brinquedos, int n) {
-    qsort(brinquedos, 0, n - 1);
+void quick_sort(brinquedo *brinquedos, int n){
+        qsort(brinquedos,0,n-1);
 }
 
 void brinquedos_sort(brinquedo *brinquedos, int n, int sel){
@@ -170,8 +171,7 @@ void brinquedos_sort(brinquedo *brinquedos, int n, int sel){
             quick_sort(brinquedos, n);
             break;
         default:
-            printf("Seleção inválida\n");
-            break;
+             break;
     }
 }
 
@@ -185,10 +185,12 @@ int main(){
         brinquedos[i].cor = string_to_cor(cor_str);
         brinquedos[i].pos_original = i;
     }
-    int sel = 1;
+    int sel;
+    scanf("%d", &sel);
     brinquedos_sort(brinquedos, n, sel);
 
     for(int i = 0; i < n; i++){
+       // printf("%d: %d %.2f %.2f\n", brinquedos[i].pos_original, brinquedos[i].cor, brinquedos[i].comprimento, brinquedos[i].nota);
         printf("%d;", brinquedos[i].pos_original);
     }
     return 0;
