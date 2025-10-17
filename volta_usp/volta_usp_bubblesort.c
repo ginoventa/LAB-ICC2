@@ -1,85 +1,79 @@
-#include <stdio.h> 
+#include <stdio.h>
 #include <ctype.h>
 #include <string.h>
 #include <stdbool.h>
 
-
-void shakesort(int *vetor, int tamanho, int *comparacoes, int *trocas) {
-    *comparacoes = 0;
-    *trocas = 0;
-    int inicio = 0, fim = tamanho - 1;
-    while (inicio < fim) {
-        int trocou = 0;
-        for (int i = inicio; i < fim; i++) {
-            (*comparacoes)++;
-            if (vetor[i] > vetor[i + 1]) {
-                int aux = vetor[i];
-                vetor[i] = vetor[i + 1];
-                vetor[i + 1] = aux;
+void ordenacaoBubblesort(char *vetor, int tamanhoVetor, int *comp, int *trocas)
+{
+    for (int i = 0; i < tamanhoVetor - 1; i++)
+    {
+        for (int j = 0; j < tamanhoVetor - 1 - i; j++)
+        {
+            (*comp)++;
+            if (vetor[j] > vetor[j + 1])
+            {
+                int temp = vetor[j];
+                vetor[j] = vetor[j + 1];
+                vetor[j + 1] = temp;
                 (*trocas)++;
                 trocou = 1;
             }
         }
-        fim--;
-        for (int i = fim; i > inicio; i--) {
-            (*comparacoes)++;
-            if (vetor[i] < vetor[i - 1]) {
-                int aux = vetor[i];
-                vetor[i] = vetor[i - 1];
-                vetor[i - 1] = aux;
-                (*trocas)++;
-                trocou = 1;
-            }
-        }
-        inicio++;
     }
 }
-
-
-int contador_palavras(const char *str) {
-    int nome = 0;
-    for (int i = 0; str[i] != '-' && str[i] != '\0'; i++) {
-        if (isalpha((unsigned char)str[i])) {
+int contador_palavras(char *str)
+{
+    int nome = 0, i = 0;
+    while (str[i] != '-' && str[i] != '\0')
+    {
+        if (isalpha(str[i]))
+        {
             nome++;
         }
+        i++;
     }
     return nome;
 }
-void imprimir(const char* grupo, int tamanho, int* tamanho_nomes, int comparacoes, int trocas){
-    printf("%s - [", grupo);
-    for(int i = 0; i < tamanho; i++) {
-        printf("%d%s", tamanho_nomes[i], (i < tamanho-1) ? ", " : "");
+void imprimir(int tamanho, char *tamanho_nomes, int *comparacoes, int *trocas)
+{
+    for (int i = 0; i < tamanho; i++)
+    {
+        printf("%d%s", tamanho_nomes[i], (i < tamanho - 1) ? ", " : "");
     }
     printf("]\n");
-    printf("Comparações: %d, Trocas: %d\n", comparacoes, trocas);
+    printf("Comparações: %d, Trocas: %d", *comparacoes, *trocas);
 }
 
-int main() {
-    int USP[75001], EXTERNA[75001];
+int main()
+{
     int nu = 0, ne = 0;
-    char str[150];
+    char USP[75000], EXTERNA[75000];
+    char str[120];
 
-    while (fgets(str, sizeof(str), stdin)) {
-        int len = (int)strlen(str);
-        if (len > 0 && str[len - 1] == '\n') str[len - 1] = '\0';
+    while (fgets(str, 120, stdin))
+    {
         int numero = contador_palavras(str);
-        int last = len - 2;
-        while (last >= 0 && (str[last] == ' ' || str[last] == '\t')) last--;
-        if (last >= 0 && (str[last] == 'p' || str[last] == 'P')) {
-            USP[nu++] = numero;
-        } else {
-            EXTERNA[ne++] = numero;
+        if (tolower(str[strlen(str) - 2]) == 'p' || tolower(str[strlen(str) - 1]) == 'p')
+        {
+            USP[nu] = numero;
+            nu++;
+        }
+        else
+        {
+            EXTERNA[ne] = numero;
+            ne++;
         }
     }
-    int comp_usp = 0, troc_usp = 0;
-    int comp_ext = 0, troc_ext = 0;
-    shakesort(USP, nu, &comp_usp, &troc_usp);
-    imprimir("USP", nu, USP, comp_usp, troc_usp);
-    printf("\n");
-    shakesort(EXTERNA, ne, &comp_ext, &troc_ext);
-    imprimir("Externa", ne, EXTERNA, comp_ext, troc_ext);
+    int comp = 0, troca = 0;
+    ordenacaoBubblesort(USP, nu, &comp, &troca);
+    printf("USP - [");
+    imprimir(nu, USP, &comp, &troca);
+    printf("\n\n");
+    comp = 0, troca = 0;
+    printf("Externa - [");
+    ordenacaoBubblesort(EXTERNA, ne, &comp, &troca);
+    imprimir(ne, EXTERNA, &comp, &troca);
     return 0;
 }
-
 
 // Etapas: Pegar nomes --> contar caracteres --> salvar quantidade em um vetor
