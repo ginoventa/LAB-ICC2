@@ -84,7 +84,6 @@ void merge(brinquedo *brinquedos, int left, int mid, int right, brinquedo *aux){
         i++;
         k++;
     }
-
     while(j <= right){
         aux[k] = brinquedos[j];
         j++;
