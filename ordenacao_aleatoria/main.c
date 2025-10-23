@@ -128,7 +128,6 @@ void quick_sort(int *vetor, int n){
     quicksort_rec(vetor, 0, n-1);
 }
 
-
 void shell_sort(int *vetor, int n){
     for(int gap = n / 2; gap > 0; gap /= 2){
         for(int i = gap; i < n; i++){
@@ -151,7 +150,7 @@ void gerar_vetor(char* tipo_vetor, int* vetor, int n, int* seed) {
     }
     if (strcmp(tipo_vetor, "reverse") == 0) {
         for (int i = 1; i <= n; i++){
-            vetor[i-1] = n + 1 - i; // 100 + 1 - 1 = 100, 100 + 1 - 2= 
+            vetor[i-1] = n + 1 - i; 
         }
         return;
     }
@@ -161,7 +160,7 @@ void gerar_vetor(char* tipo_vetor, int* vetor, int n, int* seed) {
 }
 
 void vetor_sort(int *vetor, int n, int sel){
-    // Implementação do algoritmo de ordenação (Heap Sort, Shell Sort, Quick Sort)
+    // Implementação do algoritmo de ordenação (Radix Sort, Shell Sort, Quick Sort)
     switch (sel){
         case 1:
             radix_sort(vetor,n);
