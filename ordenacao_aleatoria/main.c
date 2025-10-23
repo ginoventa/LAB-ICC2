@@ -1,5 +1,5 @@
 /*
-Alunos: Chrystian Paniago Nantes (15635906) e Giovanna Nascimento Noventa (15637210)
+Alunos: Christyan Paniago Nantes (15635906) e Giovanna Nascimento Noventa (15637210)
 Disciplina: Laboratório de Introdução à Ciência da Computação II (SCC0220)
 Atividade: Tiro no Escuro (Entregável 5)
 */
